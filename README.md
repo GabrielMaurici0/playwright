@@ -41,3 +41,8 @@
     ```
     npx playwright test --debug
     ```
+
+4. Utilizar o comando abaixo para apresentar o report dos testes
+    ```
+    npx playwright show-report
+    ```
