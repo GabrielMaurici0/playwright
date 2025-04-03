@@ -33,4 +33,9 @@ export class LoginPage {
             "https://www.moozcobranca.com.br/homologacao/servlet/hbranco"
         );
     }
+
+    async validMessage(target:string){
+        await expect(this.page.locator('//*[@id="swal2-html-container"]')).toHaveText(target);
+    }
+
 }

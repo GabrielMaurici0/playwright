@@ -12,7 +12,7 @@ import { LoginPage } from '../pages/login-page';
 //test('descrição'), async ({ page -> acesso ao contexto do navegador })=>{}
 
 
-test.only('Login Correto', async ({ page }) => {
+test('Login Correto', async ({ page }) => {
     
     const loginPage: LoginPage = new LoginPage(page);
     // Vai para a pagina de login / Acessa a url
@@ -24,13 +24,11 @@ test.only('Login Correto', async ({ page }) => {
 });
 
 test('Login Incorreto', async ({ page }) => {
-    await page.goto('https://www.moozcobranca.com.br/homologacao/servlet/hsiscobra');
 
-    await page.fill('//*[@id="_USUCODC"]', process.env.USUARIO!);
-    await page.fill('#_USUSEN', 'abcdefg');
 
-    await page.locator('//*[@id="TABLE"]/tbody/tr[6]/td[3]/input[1]').click();
-
-    await expect(page.locator('//*[@id="swal2-html-container"]')).toHaveText('Os dados informados estão incorretos.');
-
+    const loginPage: LoginPage = new LoginPage(page);
+    
+    await loginPage.go();
+    await loginPage.sigIn(process.env.USUARIO!, process.env.SENHAI!);
+    await loginPage.validMessage('Os dados informados estão incorretos.')
 });
