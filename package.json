@@ -1,0 +1,16 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/GabrielMaurici0/playwright.git",
+  "author": "GabrielMaurici0 <mauriciogabriel332@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.14.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "playwright": "file:"
+  }
+}
