@@ -20,7 +20,7 @@ export default defineConfig({
     workers: process.env.CI ? 1 : undefined,
 
     // Reporter to use
-    reporter: "html",
+    reporter: [['html', {outputFolter: 'report'} ]],
 
     use: {
         // Base URL to use in actions like `await page.goto('/')`.
@@ -30,6 +30,7 @@ export default defineConfig({
         trace: "on-first-retry",
 
         headless: false,
+        screenshot: 'on'
     },
     // Configure projects for major browsers.
     projects: [
