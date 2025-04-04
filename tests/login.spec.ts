@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import { LoginPage } from "../pages/login-page";
 
 //Test -> Se trata do todo, no caso, o bloco que contém o método de teste

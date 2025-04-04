@@ -36,6 +36,10 @@
     ```
     npx playwright test
     ```
+    Ou utilizar o comando abaixo para executar apenas um arquivo de teste
+     ```
+    npx playwright test /tests/XXXX.spec.ts
+    ```
 
     Caso seja necessário Debugar utilizar o comando:
     ```
