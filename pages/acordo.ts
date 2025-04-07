@@ -1,5 +1,5 @@
 import { Page, expect } from '@playwright/test';
-import { time } from 'console';
+
 
 export class SearchPage {
     readonly page: Page;
