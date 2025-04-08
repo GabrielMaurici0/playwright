@@ -1,5 +1,14 @@
 import { test, expect } from '@playwright/test';
-import { decode } from 'html-entities';
+import * as path from 'path';
+import * as fs from 'fs'
+import * as xml2js from 'xml2js'
+import { LoginPage } from "../pages/login-page";
+
+let lp: LoginPage;
+
+test.beforeEach(async ({ page }) => {
+    lp = new LoginPage(page);
+});
 
 test('Arquivo upload - Acionamento', async () => {
   const soapXml = `
@@ -21,7 +30,7 @@ test('Arquivo upload - Acionamento', async () => {
     </soapenv:Envelope>
   `;
 
-  const endpoint = process.env.ENDPOINT!; // Substitua pelo real
+  const endpoint = process.env.ENDPOINT!; 
 
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -34,22 +43,36 @@ test('Arquivo upload - Acionamento', async () => {
 
   const responseText = await response.text();
 
-  // Extrai a tag <Xmlout>
-  const xmlOutMatch = responseText.match(/<Xmlout>([\s\S]*?)<\/Xmlout>/);
-  expect(xmlOutMatch).not.toBeNull();
+  const parser = new xml2js.Parser({ explicitArray: false });
 
-  const encodedXmlContent = xmlOutMatch![1];
+  const outerResult = await parser.parseStringPromise(responseText)
 
-  // Decodifica todas as entidades HTML
-  const fullyDecodedXml = decode(decode(encodedXmlContent)); // dupla decodificação se necessário
+  const xmloutString = outerResult['SOAP-ENV:Envelope']['SOAP-ENV:Body']['WSAssessoria.ExecuteResponse']['Xmlout'];
 
-  // Extrai o link
-  const linkMatch = fullyDecodedXml.match(/<arquivo_link>(.*?)<\/arquivo_link>/);
-  expect(linkMatch).not.toBeNull();
+  const innerParser = new xml2js.Parser({ explicitArray: false });
+  const innerResult = await innerParser.parseStringPromise(xmloutString);
+  const link = innerResult.arquivo_upload.arquivo.arquivo_link;
+  
+  const zipPath = path.resolve(__dirname, "C:\\Users\\gabriel.mauricio\\Desktop\\2239\\Arquivos de acionamento para o teste\\layout-2 - Sem inconsistencia.zip");
+  const zipBuffer = fs.readFileSync(zipPath);
 
-  const finalUrl = linkMatch![1];
+  const newResponse = await fetch(link,{
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/zip',
+    },
+    body: soapXml,
+  });
 
-  console.log('🔗 Link final limpo:', finalUrl);
+  const finalRes = newResponse.text()
+  await expect(newResponse.status).toEqual(200)
+  
 });
 
-test.beforeAll('Processa arquivos', async ({ page })=>{})
+test.beforeAll('Processa arquivos', async ({ page })=>{
+
+  await lp.go()
+  await lp.sigIn(process.env.USUARIO!, process.env.SENHA!)
+  await lp.userLoggedIn()
+
+})
