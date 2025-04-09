@@ -20,7 +20,6 @@
     npx playwright install
     ```
 
-5. Criar o arquivo playwright.config.ts na root da página
 
 
 # Como executar um teste
