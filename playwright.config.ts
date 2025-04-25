@@ -24,7 +24,7 @@ export default defineConfig({
 
     use: {
         // Base URL to use in actions like `await page.goto('/')`.
-        baseURL: process.env.BASEURL!,
+        baseURL: process.env.URLPADRAO!,
 
         // Collect trace when retrying the failed test.
         trace: "on-first-retry",
