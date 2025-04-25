@@ -55,3 +55,7 @@
     ```
     npx playwright show-report
     ```
+
+### Sugestões
+
+Para facilitar a escrita do código, é possível utilizar a extensão do Playwright para o VSCode. Ela adiciona uma seção na barra lateral, identificada pelo ícone de um tubo de ensaio. Ao acessar esse menu, você terá acesso a diversas ferramentas do Playwright, como o gravador de testes (codegen), visualização de execuções anteriores, criação e execução de testes, inspeção de elementos da interface e depuração interativa dos testes. Essas funcionalidades tornam o processo de automação mais rápido, intuitivo e eficiente.
