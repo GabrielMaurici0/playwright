@@ -27,31 +27,14 @@ test('Loop', async({ page }) => {
     for (const row of data){
 
         await page.goto('https://bugbank.netlify.app/')
-
         await page.getByRole('button', { name: 'Registrar' }).click()
-
-        // const iemail = page.locator('form').filter({ hasText: 'Voltar ao loginE-' }).getByPlaceholder('Informe seu e-mail')
-        // await page.fill(iemail, row.email)
-        
         await page.waitForTimeout(2000)
-
         await page.locator('form').filter({ hasText: 'Voltar ao loginE-' }).getByPlaceholder('Informe seu e-mail').fill(row.email)
-
-
-        
         await page.getByRole('textbox', { name: 'Informe seu Nome' }).fill(row.nome)
-
-        
         await page.locator('form').filter({ hasText: 'Voltar ao loginE-' }).getByPlaceholder('Informe sua senha').fill(row.senha)
-
-        
         await page.getByRole('textbox', { name: 'Informe a confirmação da senha' }).fill(row.senha)
-    
         await page.getByRole('button', { name: 'Cadastrar' }).click()
-
-        
         await page.getByText('Fechar').click()
-
         await page.waitForTimeout(2000)
     }
 
