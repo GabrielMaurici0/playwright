@@ -15,7 +15,13 @@
     yarn init
     ```
 
-4. Instalar a infraestrutura do Playwright
+4. Instalar as dependencias 
+    ```
+    yarn install
+
+    ```
+
+5. Instalar a infraestrutura do Playwright
     ```
     npx playwright install
     ```
